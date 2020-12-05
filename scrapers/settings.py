@@ -14,7 +14,7 @@ NEWSPIDER_MODULE = "scrapers.spiders"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-# USER_AGENT = 'scrapers (+http://www.yourdomain.com)'
+USER_AGENT ='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -25,17 +25,16 @@ ROBOTSTXT_OBEY = True
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-# DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 90
 # The download delay setting will honor only one of:
 # CONCURRENT_REQUESTS_PER_DOMAIN = 16
 # CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
-# COOKIES_ENABLED = False
-
+COOKIES_ENABLED = True
+COOKIES_PERSISTENCE = True
 # Disable Telnet Console (enabled by default)
-# TELNETCONSOLE_ENABLED = False
-
+TELNETCONSOLE_ENABLED = False
 # Override the default request headers:
 # DEFAULT_REQUEST_HEADERS = {
 #   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -44,21 +43,29 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-# SPIDER_MIDDLEWARES = {
-#    'scrapers.middlewares.ScrapersSpiderMiddleware': 543,
-# }
+#SPIDER_MIDDLEWARES = {
+ #  'scrapers.middlewares.ScrapersSpiderMiddleware': 543,
+#}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-# DOWNLOADER_MIDDLEWARES = {
-#    'scrapers.middlewares.ScrapersDownloaderMiddleware': 543,
-# }
+DOWNLOADER_MIDDLEWARES = {
+    'scrapers.middlewares.ScrapersDownloaderMiddleware': 543,
+    'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware': 10000,
+  #  'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+   # 'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 400,
+ }
+
+DOWNLOADER_MIDDLEWARES.update({
+    'scrapy.downloadermiddlewares.cookies.CookiesMiddleware': None,
+    'scrapy_cookies.downloadermiddlewares.cookies.CookiesMiddleware': 700,
+})
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
-# EXTENSIONS = {
-#    'scrapy.extensions.telnet.TelnetConsole': None,
-# }
+#EXTENSIONS = {
+ #   'scrapy.extensions.telnet.TelnetConsole': None,
+#}
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
